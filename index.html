@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For You ❤️</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+
+<style>
+body{
+  margin:0;
+  min-height:100vh;
+  background:radial-gradient(circle at top,#5a0000,#120000 90%);
+  font-family:'Great Vibes',cursive;
+  color:white;
+  overflow-x:hidden;
+}
+
+/* soft stars */
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  background:url("https://www.transparenttextures.com/patterns/stardust.png");
+  opacity:0.25;
+  pointer-events:none;
+}
+
+/* START */
+#start{
+  position:fixed;
+  inset:0;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  cursor:pointer;
+  z-index:5;
+}
+
+#start h2{
+  font-size:1.6rem;
+  font-style:italic;
+  opacity:0.95;
+}
+
+/* CARD */
+#card{
+  display:none;
+  max-width:90%;
+  margin:50px auto;
+  padding:42px 26px;
+  background:linear-gradient(180deg,#7a0000,#2a0000);
+  border-radius:34px;
+  box-shadow:0 0 90px rgba(255,80,80,0.35);
+  text-align:center;
+}
+
+/* HEADINGS */
+h1{
+  font-size:3rem;
+  font-weight:700;
+  font-style:italic;
+  margin-bottom:4px;
+}
+
+h3{
+  font-size:1.5rem;
+  font-weight:400;
+  opacity:0.9;
+  margin-bottom:24px;
+}
+
+/* TEXT */
+p{
+  font-size:1.45rem;
+  line-height:2;
+  margin:14px 0;
+  opacity:0;
+  transform:translateY(14px);
+  transition:opacity 1.2s ease, transform 1.2s ease;
+}
+
+/* FLOATING HEARTS */
+.heart{
+  position:fixed;
+  bottom:-10px;
+  font-size:20px;
+  animation:floatUp linear forwards;
+  pointer-events:none;
+}
+@keyframes floatUp{
+  to{ transform:translateY(-120vh); opacity:0; }
+}
+
+/* ROSES */
+.rose{
+  position:fixed;
+  top:-20px;
+  font-size:20px;
+  animation:fallDown linear forwards;
+  pointer-events:none;
+}
+@keyframes fallDown{
+  to{ transform:translateY(120vh) rotate(180deg); opacity:0; }
+}
+
+/* TAP HEART */
+.tap-heart{
+  position:absolute;
+  font-size:24px;
+  animation:tapFade 1.6s forwards;
+  pointer-events:none;
+}
+@keyframes tapFade{
+  to{ transform:translateY(-55px) scale(1.4); opacity:0; }
+}
+
+/* SPARK */
+.spark{
+  position:absolute;
+  width:5px;
+  height:5px;
+  border-radius:50%;
+  background:#ffd6d6;
+  animation:sparkFade 0.9s forwards;
+}
+@keyframes sparkFade{
+  to{ transform:scale(0); opacity:0; }
+}
+
+/* PETALS */
+.petal{
+  position:absolute;
+  font-size:16px;
+  animation:petalFloat 4.5s ease-out forwards;
+  filter:drop-shadow(0 0 6px rgba(255,200,200,0.6));
+  pointer-events:none;
+}
+@keyframes petalFloat{
+  to{
+    transform:translateY(-140px) translateX(40px) rotate(120deg);
+    opacity:0;
+  }
+}
+
+/* SECRET TEXTS */
+#secret1,#secret2,#finalLine{
+  display:none;
+  margin-top:22px;
+  font-style:italic;
+}
+
+#secret1{ color:#ffd6d6; }
+#secret2{ color:#ffb3b3; }
+#finalLine{
+  color:#ffe6e6;
+  font-size:1.55rem;
+  border-top:1px solid rgba(255,255,255,0.2);
+  padding-top:18px;
+}
+</style>
+</head>
+
+<body>
+
+<div id="start">
+  <h2>
+    Tap anywhere ❤️  
+    <br><br>
+    something gentle is waiting
+  </h2>
+</div>
+
+<div id="card">
+  <h1><b><i>Happy Valentine’s</i></b></h1>
+  <h3>Hajra 🌹</h3>
+
+  <p>Some people arrive quietly… and somehow stay unforgettable.</p>
+  <p>You don’t feel like just a friend — you feel like a rare exception.</p>
+  <p>I still remember your first message:  
+     <i>“Aap ki age kia hai taake main aap ko reels send kar sakun?”</i></p>
+  <p>From that moment, comfort felt effortless.</p>
+  <p>I never thought I’d feel this ease opening up beyond my own world.</p>
+  <p>It’s been nine months — and I’m truly grateful to Allah for your friendship.</p>
+  <p>You became warmth on ordinary days… and a thought I don’t rush away.</p>
+
+  <p id="secret1">
+    Since you kept tapping…  
+    I’ll admit this softly — you cross my mind more than I let on.
+  </p>
+
+  <p id="secret2">
+    I don’t name this feeling.  
+    Not because it’s small —  
+    but because it deserves care.
+  </p>
+
+  <p id="finalLine">
+    If one day this ever means more…  
+    I hope you’ll know —  
+    it was never timepass.
+  </p>
+</div>
+
+<script>
+const start=document.getElementById("start");
+const card=document.getElementById("card");
+const paras=document.querySelectorAll("p");
+const s1=document.getElementById("secret1");
+const s2=document.getElementById("secret2");
+const final=document.getElementById("finalLine");
+
+let taps=0;
+
+/* OPEN */
+start.onclick=()=>{
+  start.style.display="none";
+  card.style.display="block";
+  let i=0;
+  function show(){
+    if(i<paras.length){
+      paras[i].style.opacity=1;
+      paras[i].style.transform="translateY(0)";
+      i++;
+      setTimeout(show,1200);
+    }
+  }
+  show();
+};
+
+/* HEARTS */
+setInterval(()=>{
+  const h=document.createElement("div");
+  h.className="heart";
+  h.textContent=["❤️","💗","💘"][Math.floor(Math.random()*3)];
+  h.style.left=Math.random()*100+"vw";
+  h.style.color=["#ff4d6d","#ff758f","#ffd6d6"][Math.floor(Math.random()*3)];
+  h.style.animationDuration=7+Math.random()*5+"s";
+  document.body.appendChild(h);
+  setTimeout(()=>h.remove(),11000);
+},1000);
+
+/* ROSES */
+setInterval(()=>{
+  const r=document.createElement("div");
+  r.className="rose";
+  r.textContent="🌹";
+  r.style.left=Math.random()*100+"vw";
+  r.style.animationDuration=9+Math.random()*5+"s";
+  document.body.appendChild(r);
+  setTimeout(()=>r.remove(),14000);
+},1700);
+
+/* TAP EFFECTS */
+document.addEventListener("click",e=>{
+  taps++;
+
+  const t=document.createElement("div");
+  t.className="tap-heart";
+  t.textContent=["❤️","💗","💘"][Math.floor(Math.random()*3)];
+  t.style.left=e.clientX+"px";
+  t.style.top=e.clientY+"px";
+  document.body.appendChild(t);
+  setTimeout(()=>t.remove(),1600);
+
+  for(let i=0;i<6;i++){
+    const s=document.createElement("div");
+    s.className="spark";
+    s.style.left=(e.clientX+Math.random()*24-12)+"px";
+    s.style.top=(e.clientY+Math.random()*24-12)+"px";
+    document.body.appendChild(s);
+    setTimeout(()=>s.remove(),900);
+  }
+
+  for(let i=0;i<3;i++){
+    const p=document.createElement("div");
+    p.className="petal";
+    p.textContent=["🌸","🌺","💮"][Math.floor(Math.random()*3)];
+    p.style.left=(e.clientX+Math.random()*20-10)+"px";
+    p.style.top=(e.clientY+Math.random()*20-10)+"px";
+    document.body.appendChild(p);
+    setTimeout(()=>p.remove(),4500);
+  }
+
+  if(taps===9) s1.style.display="block";
+  if(taps===15) s2.style.display="block";
+  if(taps===21) final.style.display="block";
+});
+</script>
+
+</body>
+  </html>
